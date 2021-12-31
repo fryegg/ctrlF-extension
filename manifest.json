@@ -1,0 +1,40 @@
+{
+    "manifest_version": 2,
+  
+    "name": "example_chromeExtension",
+    "description": "Print Hello, World! message",
+    "version": "1.0.0",
+  
+    "browser_action": {
+      "default_icon": "icon.png",
+      "default_title":"Extension",
+      "default_popup": "popup.html"
+    },
+    "commands": {
+        "_execute_browser_action": {
+          "suggested_key": {
+            "default": "Ctrl+Shift+F",
+            "linux": "Ctrl+Shift+F",
+            "windows": "Ctrl+Shift+F",
+            "mac": "Ctrl+Shift+F"
+          }
+        }
+    },
+    "permissions": [
+      "tabs",
+      "<all_urls>",
+      "activeTab",
+      "storage"
+    ],
+    "content_security_policy": "script-src 'self' https://ajax.googleapis.com; object-src 'self'",
+    "background": {
+      "scripts": ["background.js"],
+      "persistent": false
+    },
+    "content_scripts": [
+      {
+        "matches":["http://*.nytimes.com/*"],
+        "js":["contentScript.js"]
+      }
+    ]
+  }

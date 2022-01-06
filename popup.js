@@ -2,7 +2,7 @@ function matching(user){
   chrome.tabs.executeScript({
     code: 'var searchTerm = ' + JSON.stringify(user)
 }, function() {
-    chrome.tabs.executeScript({file: 'change.js'});
+    chrome.tabs.executeScript({file: 'contentscript.js'});
 });
 }
 //selector:text  searchterm:keyword
@@ -16,10 +16,6 @@ function launchSearch() {
 
     document.getElementById("searchBar___input").addEventListener("search", function(){
       matching(document.getElementById("searchBar___input").value);
-      // $(".highlighted").removeClass("highlighted").removeClass("match");
-      //       if (!searchAndHighlight($('.searchBar___input').val())) {
-      //           alert("No results found");
-      // }
     })
   }
 

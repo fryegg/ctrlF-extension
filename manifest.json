@@ -29,7 +29,7 @@
     "content_security_policy": "script-src 'self' https://ajax.googleapis.com; object-src 'self'",
     "background": {
       "scripts": ["background.js"],
-      "persistent": false
+      "persistent": true
     },
     "content_scripts": [
       {

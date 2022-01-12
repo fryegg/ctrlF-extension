@@ -66,9 +66,14 @@ BODY {width: 450px; min-height: 30px;}
   }
   .highlight{ 
     background: #D3E18A;
+    background-color: yellow;
   }
   .light{
     background-color: yellow;
+  }
+  .highlighter{
+    background-color: yellow;
+    color: yellow;
   }
   /* .highlighted {
     background-color:yellow;

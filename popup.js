@@ -1,21 +1,38 @@
-function matching(user){
+function read_pdf(){
+  chrome.tabs.executeScript({file: 'pdf_reader.js'});
+}
+
+function matching(user,only){
+// define what is user
+
   chrome.tabs.executeScript({
-    code: 'var searchTerm = ' + JSON.stringify(user)
-}, function() {
-    chrome.tabs.executeScript({file: 'contentscript.js'});
+    code: 'var searchTerm = ' + JSON.stringify(user) + ', only_option = ' + JSON.stringify(only)
+  }, function() {
+  chrome.tabs.executeScript({file: 'contentscript.js'});
+  });
+}
+
+function popup_req(demand){
+  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+  chrome.tabs.sendMessage(tabs[0].id, {demand: demand}, function(response) {
+    chrome.extension.getBackgroundPage().console.log("final_num",response.data);
+    document.getElementById("searchBar___counter").value = response.data;
+  });
 });
 }
-//selector:text  searchterm:keyword
 
 
 function launchSearch() {
+
+
     document.getElementById('searchBar___container').classList.add("activeSearch");
     document.getElementById('closeSearchBar').addEventListener('click', function() {
-      document.getElementById('searchBar___container').classList.remove("activeSearch");
+      window.close();
     });
-
-    document.getElementById("searchBar___input").addEventListener("search", function(){
-      matching(document.getElementById("searchBar___input").value);
+    document.getElementById("searchBar___input").focus();
+    document.getElementById("searchBar___input").addEventListener("search", function(e){
+      matching(e.target.value, document.getElementById("checkbox___only").checked);
+      popup_req("num");
     })
   }
 
